@@ -37,16 +37,16 @@
 - name: Unzip Citrix ISO
   community.windows.win_unzip:
     src: "{{ citrix_sources_path }}\\Citrix_Virtual_Apps_and_Desktops_7_2203.iso"
-    dest: "{{ citrix_sources_path }}\\CVAD"
-    creates: "{{ citrix_sources_path }}\\CVAD"
+    dest: C:\Install\CVAD
+    creates: C:\Install\CVAD
 
 - name: Install DDC Components
   win_package:
-    path: "{{ citrix_sources_path }}\\CVAD\\x64\\XenDesktop Setup\\XenDesktopServerSetup.exe"
+    path: 'C:\Install\CVAD\x64\XenDesktop Setup\XenDesktopServerSetup.exe'
     arguments: /components controller,desktopstudio,licenseserver,desktopdirector /configure_firewall /noreboot /quiet /logpath C:\Logs /IGNORE_HW_CHECK_FAILURE /nosql
     state: present
     expected_return_code: [0, 3, 3010]
-    creates_path: C:\Program Files\Citrix\Desktop Studio
+    creates_path: 'C:\Program Files\Citrix\Desktop Studio'
   register: ddc_install
 
 - name: Reboot
@@ -65,7 +65,7 @@
     path: C:\ProgramData\Citrix\XenDesktopSetup\XenDesktopServerSetup.exe
     state: present
     expected_return_code: [0, 3, 3010]
-    creates_path: C:\Program Files\Citrix\Desktop Studio
+    creates_path: 'C:\Program Files\Citrix\Desktop Studio'
   when: ddc_resume.changed
 
 - name: Reboot
