@@ -31,7 +31,7 @@
 
 - name: Copy Citrix ISO
   ansible.windows.win_copy:
-    remote_src: "{{ citrix_sources_path }}\\{{ citrix_version_name }}.iso"
+    src: "{{ citrix_sources_path }}\\{{ citrix_version_name }}.iso"
     dest: C:\Install\{{ citrix_version_name }}.iso
 
 - name: Unzip Citrix ISO
