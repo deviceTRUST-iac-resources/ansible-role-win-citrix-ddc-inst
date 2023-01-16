@@ -31,12 +31,12 @@
 
 - name: Copy Citrix ISO
   ansible.windows.win_copy:
-    src: "{{ citrix_sources_path }}\\{{ citrix_version_name }}.iso"
-    dest: C:\Install\{{ citrix_version_name }}.iso"
+    remote_src: "{{ citrix_sources_path }}\\{{ citrix_version_name }}.iso"
+    dest: C:\Install\{{ citrix_version_name }}.iso
 
 - name: Unzip Citrix ISO
   community.windows.win_unzip:
-    src: "{{ citrix_sources_path }}\\{{ citrix_version_name }}.iso"
+    src: C:\Install\{{ citrix_version_name }}.iso
     dest: C:\Install\CVAD
     creates: C:\Install\CVAD
 
