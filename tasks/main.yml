@@ -22,6 +22,7 @@
 - name: Copy Citrix iso to the local disk
   win_copy:
     src: "{{ srcisofile }}"
+    remote_src: true
     dest: "{{ destisofile }}" 
     force: no
 
