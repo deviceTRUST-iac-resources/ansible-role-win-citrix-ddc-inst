@@ -37,9 +37,9 @@
   become: yes
   become_method: runas
   become_flags: logon_type=new_credentials logon_flags=netcredentials_only
-#  vars:
-#    ansible_become_user: "{{ domain_admin }}"
-#    ansible_become_pass: "{{ domain_admin_password }}"
+  vars:
+    ansible_become_user: "{{ dc_admin_domain }}"
+    ansible_become_pass: "{{ dc_password_admin }}"
   register: ctxsetup
   run_once: true 
 
