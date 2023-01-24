@@ -31,8 +31,24 @@
     state: present
   register: disk_image_out
 
-- name: Run installer from mounted ISO
-  win_command: '"{{ exepath }}" {{ params_full }}'
+#- name: Run installer from mounted ISO
+#  win_command: '"{{ exepath }}" {{ params_full }}'
+#  become: yes
+#  become_method: runas
+#  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+#  vars:
+#    ansible_become_user: "{{ dc_admin_domain }}"
+#    ansible_become_pass: "{{ dc_password_admin }}"
+#  register: ddc_install
+#  run_once: true 
+
+- name: Install DDC Components
+  win_package:
+    path: "{{ exepath }}"
+    arguments: "{{ params_full }}"
+    state: present
+    expected_return_code: [0, 3, 3010]
+    creates_path: 'C:\Program Files\Citrix\Desktop Studio'
   become: yes
   become_method: runas
   become_flags: logon_type=new_credentials logon_flags=netcredentials_only
@@ -40,7 +56,6 @@
     ansible_become_user: "{{ dc_admin_domain }}"
     ansible_become_pass: "{{ dc_password_admin }}"
   register: ddc_install
-  run_once: true 
 
 - name: Reboot
   ansible.windows.win_reboot:
